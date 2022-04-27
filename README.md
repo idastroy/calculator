@@ -1,2 +1,3 @@
 # calculator
-The Odin Project's final project - create a calculator
+The Odin Project: Foundations 
+Final project - create a calculator

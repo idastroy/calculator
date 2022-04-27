@@ -25,3 +25,22 @@ function operate(operator, a, b) {
         return divide(a, b);
     }
 }
+/*
+const calculator = document.getElementById("calculator");
+const display = document.createElement("div");
+display.setAttribute("class", "display");
+calculator.appendChild(display);
+
+
+
+function createButtons(numbers) {
+    for (let i = 0; i < numbers; i++) {
+        const buttons = document.createElement("button");
+        buttons.value([i]);
+        calculator.appendChild(buttons);
+    }
+}
+
+createButtons(9);
+
+*/
