@@ -1,5 +1,6 @@
 * {
     text-align: center;
+    font-size: 15px;
 }
 
 #calculator {
@@ -7,7 +8,8 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    max-width: 500px;
+    max-width: 400px;
+    min-width: 400px;
     margin: 12em;
     margin-top: 2em;
 }
@@ -27,28 +29,53 @@
     display: flex;
     justify-content: center;
     gap: 5px;
-    margin-bottom: 10px;
 }
 
             #longButtons button {
-                background-color: red;
+                background-color: lightgray;
                 border: none;
                 border-radius: 5px;
-                padding: 10px 50px;
+                padding: 10px 65px;
+                font-size: 40px;
             }
 
 #buttons {
     display: flex;
+    margin: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
-            #buttons #numbers button {
+
+#numbers, #operators {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+     
+}
+            #numbers button, #operators button {
                 background-color: lightblue;
+                padding: 20px 40px;
+                border: none;
+                border-radius: 5px;
             }
 
-            #buttons #operators button {
-                background-color: green;
+            #operators button {
+                background-color: lightgreen;
             }
+
+            #numbers .decimal {
+                font-size: 25px;
+                padding: 15px 40px;
+            }
+
+            #operators .operator-subtract {
+                font-size: 25px;
+                padding: 14px 39px;
+            }
+
 
 footer {
     border: none;
+    padding: 10px;
 }
 
