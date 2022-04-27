@@ -1,3 +1,5 @@
+//Operator functions
+
 function add(a, b) {
     return a + b;
 }
@@ -25,22 +27,57 @@ function operate(operator, a, b) {
         return divide(a, b);
     }
 }
-/*
-const calculator = document.getElementById("calculator");
-const display = document.createElement("div");
-display.setAttribute("class", "display");
-calculator.appendChild(display);
+
+//Create display box
+
+const displayBox = document.createElement("div");
+displayBox.classList.add("displayBox");
+displayBox.textContent = "Display";
+document.getElementById("display").appendChild(displayBox);
+
+//Create clear and backspace button
+
+const clearButton = document.createElement("button");
+clearButton.classList.add("clear");
+clearButton.textContent = "AC";
+document.getElementById("longButtons").appendChild(clearButton);
+
+const backspace = document.createElement("button");
+backspace.classList.add("backspace");
+backspace.innerHTML = `<i class="fa-solid fa-delete-left fa-1x"></i>`;
+document.getElementById("longButtons").appendChild(backspace);
 
 
+//Create buttons for numbers, equals, and decimal
 
-function createButtons(numbers) {
-    for (let i = 0; i < numbers; i++) {
-        const buttons = document.createElement("button");
-        buttons.value([i]);
-        calculator.appendChild(buttons);
+function createNumberButtons() {
+    let numbers = [];
+    for (let i = 0; i < 10; i++) {
+        numbers = document.createElement("button");
+        numbers.classList.add("number");
+        //numbers.innerHTML = numbers[i];
+        document.getElementById("numbers").appendChild(numbers);
+    }
+    const decimal = document.createElement("button");
+    const equals = document.createElement("button");
+    decimal.classList.add("decimal");
+    equals.classList.add("equals");
+    document.getElementById("numbers").appendChild(decimal);
+    document.getElementById("numbers").appendChild(equals);
+}
+
+createNumberButtons();
+
+//Create buttons for operators
+
+function createOperatorButtons() {
+    let operators = [];
+    for (let i = 0; i < 4; i++) {
+        operators = document.createElement("button");
+        operators.classList.add("operator");
+        //operators.innerHTML = operator[i];
+        document.getElementById("operators").appendChild(operators);
     }
 }
 
-createButtons(9);
-
-*/
+createOperatorButtons();
