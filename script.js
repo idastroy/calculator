@@ -13,7 +13,7 @@ const operate = (operator, a, b) => {
         return multiply(a, b);
     } else if (operator == "/") {
         return divide(a, b);
-    }
+    };
 }
 
 //Create display box
@@ -30,7 +30,7 @@ clearButton.textContent = "AC";
 document.getElementById("longButtons").appendChild(clearButton);
 clearButton.addEventListener("click", () => {
     displayBox.textContent = "";
-})
+});
 
 const backspace = document.createElement("button");
 backspace.classList.add("backspace");
@@ -38,7 +38,7 @@ backspace.innerHTML = `<i value="backspace" class="fa-solid fa-delete-left fa-1x
 document.getElementById("longButtons").appendChild(backspace);
 backspace.addEventListener("click", () => {
     alert("hello");
-})
+});
 
 
 //Create buttons for numbers, decimal, and equals && add event listeners
@@ -54,31 +54,29 @@ function createNumberButtons() {
             const numbersArray = (document.querySelectorAll(".number"));
             const numbersValue = [...numbersArray].map(number => parseInt(number.textContent));
             console.log(numbersValue)
-            displayBox.textContent += numbersValue.reduce( (total, num) => {
-                return total + num.target;
-            }, 0);
+            displayBox.textContent += numbersValue[i];
     })
-}
+};
 }
 
 function createDecimalButton() {
     const decimal = document.createElement("button");
     decimal.classList.add("decimal");
     document.getElementById("numbers").appendChild(decimal);
-    decimal.innerHTML = `${value="."}`;
+    decimal.textContent = `${value="."}`;
     decimal.addEventListener("click", () => {
-        alert("hello");
-    })
+        displayBox.textContent += decimal.textContent;
+    });
 }
 
 function createEqualsButton() {
     const equals = document.createElement("button");
     equals.classList.add("equals");
     document.getElementById("numbers").appendChild(equals);
-    equals.innerHTML = `${value="="}`
+    equals.textContent = `${value="="}`;
     equals.addEventListener("click", () => {
         alert("hello");
-    })
+    });
 }
 
 createNumberButtons();
@@ -92,13 +90,20 @@ function createOperatorButtons() {
     let symbol;
     for (let i = 0; i < 4; i++) {
         symbol= document.createElement("button");
-        symbol.classList.add("operator" + [i]);
+        symbol.classList.add("operator");
         document.getElementById("operators").appendChild(symbol);
-        symbol.innerHTML = `${operators[i]}`
+        symbol.textContent = `${operators[i]}`;
         symbol.addEventListener("click", () => {
-            alert("hello");
+            const symbolsArray = (document.querySelectorAll(".operator"));
+            const symbolsValue = [...symbolsArray].map(symbol => symbol.textContent);
+            console.log(symbolsValue);
+            if (displayBox.textContent == "") {
+                displayBox.textContent = "nope"
+            } else {
+                displayBox.textContent += (symbolsValue[i]);
+            }
         });
-    }
+    };
 }
 
 createOperatorButtons();
@@ -106,11 +111,11 @@ createOperatorButtons();
 
 //Functions to populate the display when you click a button
 
-const buttonsArray = ["AC", "backspace", "0", "1", "2", "3", "4", 
-"5", "6", "7", "8", "9", ".", "=", "/", "x", "-", "+"];
+//const buttonsArray = ["AC", "backspace", "0", "1", "2", "3", "4", 
+//"5", "6", "7", "8", "9", ".", "=", "/", "x", "-", "+"];
 
-function leftHandSide(a) {
-    
+function leftHandSide() {
+
 }
 
 function pressOperator() {
