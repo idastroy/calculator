@@ -68,9 +68,14 @@
                 padding: 15px 40px;
             }
 
-            #operators .operator-subtract {
-                font-size: 25px;
-                padding: 14px 39px;
+            #operators .operator0, #operators .operator2 {
+                font-size: 20px;
+                padding: 17px 40px;
+            }
+
+            #operators .operator1, #operators .operator3 {
+                font-size: 14px;
+                padding: 21px 40px;
             }
 
 
