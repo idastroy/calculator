@@ -1,21 +1,9 @@
-//Operate function
-const operate = (operator, a, b) => {
-    if (operator == "+") {
-        return a + b;
-    } else if (operator == "-") {
-        return a - b;
-    } else if (operator == "*") {
-        return a * b;
-    } else if (operator == "/") {
-        return a / b;
-    };
-}
-
 //Create display box
 
 const displayBox = document.createElement("div");
 displayBox.classList.add("displayBox");
 document.getElementById("display").appendChild(displayBox);
+
 
 //Create buttons for clear and backspace
 
@@ -27,7 +15,6 @@ const createAllClear = (classList, textContent) => {
 }
 
 createAllClear("clear", "AC");
-
 
 const createBackspace = (classList, innerHTML) => {
     const backspace = document.createElement("button");
@@ -58,6 +45,7 @@ for (let i = 0; i < 10; i++) {
 createButton("decimal", `${value="."}`);
 createButton("equals", `${value="="}`);
 
+
 //Create buttons for operators
 
 const operators = ["/", "x", "-", "+"];
@@ -72,7 +60,23 @@ for (let j = 0; j < operators.length; j++) {
     createOperatorButton(`operator${[j]}`, `${operators[j]}` )
 }
 
+//Operate function
+
+const operate = (operator, a, b) => {
+    if (operator == "+") {
+        displayBox.textContent = a + b;
+    } else if (operator == "-") {
+        displayBox.textContent = a - b;
+    } else if (operator == "x") {
+        displayBox.textContent = a * b;
+    } else if (operator == "/") {
+        displayBox.textContent = a / b;
+    };
+}
+
+
 //Functions to populate the display when you click a button
+
 const buttonValue = document.querySelectorAll("button");
 let currentNumber = 0;
 let previousNumber = 0; // /[+-]?[0-9]+\.?[0-9]* Can be any number with an optional decimal. Source: https://regexland.com/regex-decimal-numbers/#:~:text=A%20regular%20expression%20for%20a,optional%20plus%20or%20minus%20sign.
@@ -82,32 +86,29 @@ function populateDisplay() {
     [...buttonValue].map(value => {
         value.addEventListener("click", () => {
             displayBox.textContent += value.textContent;
+            currentNumber = displayBox.textContent;
             if (operators.includes(value.textContent)) {
-                previousNumber = displayBox.textContent;
-                displayBox.textContent = "";
-                console.log(previousNumber);
-        //         displayBox.textContent = "";
-        //         operator = value.textContent;
-        //         console.log(previousNumber);
-        //         console.log(operator);
-        //     }
-        //     if (value.textContent == "AC") {
-        //         displayBox.textContent = "";
-        //         }
-        //     if (value.textContent == "=") {
-        //         equate();
-        //     }
-        // })
+                operator = value.textContent;
+                previousNumber = displayBox.textContent.split(operator)[0];
+                clearDisplay();
+                console.log(previousNumber + " " + operator);
+            }
+            if (value.textContent === "AC") {
+                clearDisplay();
+            }
+            if (value.textContent === "=") {
+                console.log(previousNumber + " " + operator + " " + currentNumber);
+                displayBox.textConttent = operate(operator, parseInt(previousNumber), parseInt(currentNumber));
             }
         })
     })
 }
 
-function equate() {
-    displayBox.textContent = operate(operator, previousNumber, currentNumber);
-}
-
 populateDisplay();
+
+function clearDisplay() {
+    displayBox.textContent = "";
+}
 
 // const numberButton = document.getElementsByClassName("number");
 // const decimalButton = document.getElementsByClassName("decimal");
