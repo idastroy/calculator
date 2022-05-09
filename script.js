@@ -1,8 +1,7 @@
 //Create display box
 
-const displayBox = document.createElement("div");
+const displayBox = document.getElementById("display").appendChild(document.createElement("div"));
 displayBox.classList.add("displayBox");
-document.getElementById("display").appendChild(displayBox);
 
 
 //Create buttons for clear and backspace
@@ -60,6 +59,7 @@ for (let j = 0; j < operators.length; j++) {
     createOperatorButton(`operator${[j]}`, `${operators[j]}` )
 }
 
+
 //Operate function
 
 const operate = (operator, a, b) => {
@@ -75,45 +75,139 @@ const operate = (operator, a, b) => {
 }
 
 
-//Functions to populate the display when you click a button
+//Variables and functions to populate the display
 
-const buttonValue = document.querySelectorAll("button");
-let currentNumber = 0;
-let previousNumber = 0; // /[+-]?[0-9]+\.?[0-9]* Can be any number with an optional decimal. Source: https://regexland.com/regex-decimal-numbers/#:~:text=A%20regular%20expression%20for%20a,optional%20plus%20or%20minus%20sign.
+let currentNumber = 0; // /[+-]?[0-9]+\.?[0-9]*/
+let previousNumber = 0; // /[+-]?[0-9]+\.?[0-9]*/  //Can be any number with an optional decimal. Source: https://regexland.com/regex-decimal-numbers/#:~:text=A%20regular%20expression%20for%20a,optional%20plus%20or%20minus%20sign.
 let operator = [];
-
-function populateDisplay() {
-    [...buttonValue].map(value => {
-        value.addEventListener("click", () => {
-            displayBox.textContent += value.textContent;
-            currentNumber = displayBox.textContent;
-            if (operators.includes(value.textContent)) {
-                operator = value.textContent;
-                previousNumber = displayBox.textContent.split(operator)[0];
-                clearDisplay();
-                console.log(previousNumber + " " + operator);
-            }
-            if (value.textContent === "AC") {
-                clearDisplay();
-            }
-            if (value.textContent === "=") {
-                console.log(previousNumber + " " + operator + " " + currentNumber);
-                displayBox.textConttent = operate(operator, parseInt(previousNumber), parseInt(currentNumber));
-            }
-        })
-    })
-}
-
-populateDisplay();
 
 function clearDisplay() {
     displayBox.textContent = "";
+    decimalButton.disabled = false;
 }
 
-// const numberButton = document.getElementsByClassName("number");
-// const decimalButton = document.getElementsByClassName("decimal");
-// const equalsButton = document.getElementsByClassName("equals");
-// const operatorButton = document.querySelectorAll(".operator");
-// const allClearButton = document.getElementsByClassName("clear");
-// const backspaceButton = document.getElementsByClassName("backspace");
+function eraseLastInput() {
+    let eraseDisplay = [...displayBox.textContent];
+    eraseDisplay.pop();
+    displayBox.textContent = eraseDisplay.join("");
+}
 
+
+//Add events for each button
+
+//Number click event
+const numberButton = document.querySelectorAll(".number");
+[...numberButton].map(value => {
+    value.addEventListener("click", () => {
+        displayBox.textContent += value.textContent;
+        currentNumber = displayBox.textContent;
+        })
+    });
+
+//Decimal click event
+const decimalButton = document.querySelector(".decimal");
+decimalButton.addEventListener("click", () => {
+    displayBox.textContent += ".";
+    decimalButton.disabled = true;
+});
+
+//Operator click event
+const operatorButton = document.querySelectorAll("[class*='operator']");
+[...operatorButton].map(value => {
+    value.addEventListener("click", () => {
+        operator = value.textContent;
+        previousNumber = displayBox.textContent.split(operator)[0];
+        clearDisplay();
+        });
+    });
+
+//Equals click event
+const equalsButton = document.querySelector(".equals");
+equalsButton.addEventListener("click", () => {
+    operate(operator, parseFloat(previousNumber), parseFloat(currentNumber));
+});
+
+//All clear click event
+const allClearButton = document.querySelector(".clear");
+allClearButton.addEventListener("click", () => clearDisplay());
+
+//Backspace click event
+const backspaceButton = document.querySelector(".backspace");
+backspaceButton.addEventListener("click", () => eraseLastInput());
+
+
+console.log(operator);
+console.log(previousNumber);
+console.log(currentNumber);
+
+
+
+
+
+
+// OLD
+//const buttonValue = document.querySelectorAll("button");
+
+// function populateDisplay() {
+//     [...buttonValue].map(value => {
+//         value.addEventListener("click", () => {
+//             displayBox.textContent += value.textContent;
+//             currentNumber = displayBox.textContent;
+//             if (operators.includes(value.textContent)) {
+//                 operator = value.textContent;
+//                 previousNumber = displayBox.textContent.split(operator)[0];
+//                 clearDisplay();
+//                 //console.log(previousNumber + " " + operator);
+//             }
+//             if (value.textContent == "AC") {
+//                 clearDisplay();
+//                 previousNumber = 0;
+//                 currentNumber = 0;
+//             }
+//             if (value.classList == "backspace") {
+//                 eraseLastInput();
+//             }
+//             if (value.textContent == "=") {
+//                 //console.log(previousNumber + " " + operator + " " + currentNumber);
+//                 operate(operator, parseFloat(previousNumber), parseFloat(currentNumber));
+//                 // decimalButton.disabled = true;
+//                 // backspaceButton.disabled = true;
+//                 // equalsButton.disabled = true;
+//                 currentNumber = displayBox.textContent;
+//                 console.log(currentNumber);
+//                 console.log(previousNumber);
+                
+//             }
+//             // if (currentNumber.includes("=")) {
+//             //     currentNumber = displayBox.textContent.split(".equals")[0];
+//             //     console.log(currentNumber);
+//             // }
+//         })
+//     })
+// }
+
+// populateDisplay();
+
+// function startNextEquation() {
+//     [...buttonValue].map(value => {
+//          value.addEventListener("click", () => {
+//             clearDisplay();
+//             displayBox.textContent += value.textContent;
+//             currentNumber = displayBox.textContent;
+//             if (operators.includes(value.textContent)) {
+//                 operator = value.textContent;
+//                 previousNumber = displayBox.textContent.split(operator)[0];
+//                 clearDisplay();
+//                 //console.log(previousNumber + " " + operator);
+//             }
+//             if (value.textContent == "AC") {
+//                 clearDisplay();
+//                 previousNumber = 0;
+//                 currentNumber = 0;
+//             }
+//             if (value.classList == "backspace") {
+//                 eraseLastInput();
+//             }
+//         })
+//     })
+// }
