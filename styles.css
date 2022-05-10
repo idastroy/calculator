@@ -1,48 +1,89 @@
+@font-face {
+    src: url(fonts/Digital7-1e1Z.ttf);
+    font-family: digital7;
+}
+
 * {
     text-align: center;
     font-size: 15px;
+    font-family: 'Oswald', sans-serif;
+}
+
+body {
+    background-image: url("https://images.unsplash.com/photo-1472289065668-ce650ac443d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80");
+    background-repeat: no-repeat;
 }
 
 #calculator {
-    border: 1px solid black;
-    border-radius: 10px;
+    border: none;
+    box-shadow: 2px 2px 5px rgb(73, 68, 68);
+    background-color: rgba(32, 32, 33, 0.99);
+    background-image: url("https://mashtrelo.com/wp-content/uploads/2017/11/brushed-metal-silver.jpg");
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
-    max-width: 400px;
-    min-width: 400px;
+    max-width: 350px;
+    min-width: 350px;
     margin: 12em;
     margin-top: 2em;
+    margin-left: 30em;
 }
 
 #display {
     border: none;
+    margin: 4px;
+        margin-bottom: 25px;
+    padding-bottom: 70px;
+    border-radius: 10px;
+        border-bottom-left-radius: 45%;
+        border-bottom-right-radius: 45%;
+    background-color: black;
+    background-image: url("https://media.istockphoto.com/photos/black-metal-texture-background-picture-id460230555?k=20&m=460230555&s=170667a&w=0&h=41Z6MH-yctNCZmIdTPwf1R6OfzTAGY2wn7_K5K1-ZyY=");
 }
             .displayBox {
-                border: 1px solid black;
+                border: 5px solid rgb(202, 204, 199);
                 border-radius: 10px;
-                padding: 40px;
-                margin: 20px;
-                margin-bottom: 10px;
+                height: 1em;
+                padding: 2px;
+                margin: 30px;
+                    margin-bottom: 10px;
+                background-color: rgba(214, 229, 214, 0.824);
+                box-shadow: inset 1px 0px 8px 1px #252424,0px 0px 3px -73px #838181;
+                            -webkit-box-shadow: inset 1px 0px 8px 1px #252424,0px 0px 3px -73px #838181;
+                             -moz-box-shadow: inset 1px 0px 8px 1px #252424,0px 0px 3px -73px #838181;
+                            -o-box-shadow: inset 1px 0px 8px 1px #252424,0px 0px 3px -73px #838181;
+                font-family: digital7;
+                font-size: 4em;
+                line-height: 65px;
             }
 
 #longButtons {
     display: flex;
     justify-content: center;
     gap: 5px;
+    margin: 2px 5px;
 }
 
             #longButtons button {
-                background-color: lightgray;
+                background-color: rgb(144, 51, 77);
+                background: linear-gradient(100deg, #90334D 17%, #6B2237 100%);
+                    background: -moz-linear-gradient(100deg, #90334D 17%, #6B2237 100%);
+                    background: -webkit-linear-gradient(100deg, #90334D 17%, #6B2237 100%);
+                    background: -o-linear-gradient(100deg, #90334D 17%, #6B2237 100%);
                 border: none;
-                border-radius: 5px;
-                padding: 10px 65px;
+                border-radius: 10px;
+                padding: 5px 52px;
                 font-size: 40px;
+                color: rgb(207, 207, 207);
+                box-shadow: 1px 0px 4px #1a1a1a;
+                            -webkit-box-shadow: 1px 0px 2px #1a1a1a;
+                            -moz-box-shadow: 1px 0px 1px #1a1a1a;
             }
 
 
 #buttons {
     display: flex;
-    margin: 15px;
+    margin: 25px;
     margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -50,33 +91,41 @@
 #numbers, #operators {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 7px;
      
 }
             #numbers button, #operators button {
-                background-color: lightblue;
-                padding: 20px 40px;
+                font-size: 20px;
+                background-color: rgb(128, 134, 135);
+                background: linear-gradient(100deg, #737E87 17%, #3C4852 100%);
+                    background: -moz-linear-gradient(100deg, #737E87 17%, #3C4852 100%);
+                    background: -webkit-linear-gradient(100deg, #737E87 17%, #3C4852 100%);
+                    background: -o-linear-gradient(100deg, #737E87 17%, #3C4852 100%);
+                color: rgb(227, 227, 227);
+                height: 3em;
+                width: 3.45em;
                 border: none;
-                border-radius: 5px;
+                border-radius: 10px;
+                box-shadow: 1px 0px 4px #1a1a1a;
+                            -webkit-box-shadow: 1px 0px 2px #1a1a1a;
+                            -moz-box-shadow: 1px 0px 1px #1a1a1a;
             }
 
             #operators button {
-                background-color: lightgreen;
+                background-color: rgb(67, 67, 67);
             }
 
-            #numbers .decimal {
-                font-size: 25px;
-                padding: 15px 40px;
+            /* #numbers .decimal {
+               
+                
             }
 
             #operators .operator0, #operators .operator2 {
-                font-size: 20px;
-                padding: 17px 40px;
+          
             }
 
             #operators .operator1, #operators .operator3 {
-                font-size: 14px;
-                padding: 21px 40px;
+                */
             }
 
 

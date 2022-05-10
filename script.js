@@ -80,6 +80,7 @@ const operate = (operator, a, b) => {
 let currentNumber = 0; // /[+-]?[0-9]+\.?[0-9]*/
 let previousNumber = 0; // /[+-]?[0-9]+\.?[0-9]*/  //Can be any number with an optional decimal. Source: https://regexland.com/regex-decimal-numbers/#:~:text=A%20regular%20expression%20for%20a,optional%20plus%20or%20minus%20sign.
 let operator = [];
+let equals = false;
 
 function clearDisplay() {
     displayBox.textContent = "";
@@ -101,8 +102,21 @@ const numberButton = document.querySelectorAll(".number");
     value.addEventListener("click", () => {
         displayBox.textContent += value.textContent;
         currentNumber = displayBox.textContent;
-        })
+        //console.log(previousNumber + operator + currentNumber);
+        if (equals) {
+            equals = false;
+            clearDisplay();
+            currentNumber = [...currentNumber].pop();
+            console.log(currentNumber + " " + previousNumber);
+            //currentNumber = displayBox.textContent;
+        }
+        });
     });
+
+    //2 + 5 = 7
+    //3 + 2 = 5
+    //20 + 2 = 22
+
 
 //Decimal click event
 const decimalButton = document.querySelector(".decimal");
@@ -125,6 +139,10 @@ const operatorButton = document.querySelectorAll("[class*='operator']");
 const equalsButton = document.querySelector(".equals");
 equalsButton.addEventListener("click", () => {
     operate(operator, parseFloat(previousNumber), parseFloat(currentNumber));
+    //console.log(previousNumber + operator + currentNumber);
+    previousNumber = currentNumber;
+    currentNumber = displayBox.textContent;
+    equals = true;
 });
 
 //All clear click event
@@ -134,11 +152,6 @@ allClearButton.addEventListener("click", () => clearDisplay());
 //Backspace click event
 const backspaceButton = document.querySelector(".backspace");
 backspaceButton.addEventListener("click", () => eraseLastInput());
-
-
-console.log(operator);
-console.log(previousNumber);
-console.log(currentNumber);
 
 
 
