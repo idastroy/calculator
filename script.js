@@ -72,25 +72,35 @@ const operate = (operator, a, b) => {
     } else if (operator == "/") {
         displayBox.textContent = a / b;
     };
+    if (operator == "/" && b == "0") {
+        displayBox.textContent = "80085";
+    }
+    console.log(a + operator + b);
 }
 
 
-//Variables and functions to populate the display
+//Declare variables and functions to populate the display
 
-let currentNumber = 0; // /[+-]?[0-9]+\.?[0-9]*/
-let previousNumber = 0; // /[+-]?[0-9]+\.?[0-9]*/  //Can be any number with an optional decimal. Source: https://regexland.com/regex-decimal-numbers/#:~:text=A%20regular%20expression%20for%20a,optional%20plus%20or%20minus%20sign.
-let operator = [];
+let currentNumber = 0; 
+let previousNumber = 0; 
+let operator = "";
 let equals = false;
+
 
 function clearDisplay() {
     displayBox.textContent = "";
     decimalButton.disabled = false;
+    equals = false;
 }
 
 function eraseLastInput() {
     let eraseDisplay = [...displayBox.textContent];
     eraseDisplay.pop();
     displayBox.textContent = eraseDisplay.join("");
+}
+
+function populateDisplay(num) {
+    displayBox.textContent += num;
 }
 
 
@@ -100,56 +110,57 @@ function eraseLastInput() {
 const numberButton = document.querySelectorAll(".number");
 [...numberButton].map(value => {
     value.addEventListener("click", () => {
-        displayBox.textContent += value.textContent;
-        currentNumber = displayBox.textContent;
-        //console.log(previousNumber + operator + currentNumber);
         if (equals) {
-            // let nextEquation = [...displayBox.textContent];
-            // nextEquation.pop();
-            // displayBox.textContent = nextEquation;
-            // equals = false;
-            // currentNumber = [...currentNumber].pop();
-            // console.log(currentNumber + " " + previousNumber);
-            //currentNumber = displayBox.textContent;
-        };
+            clearDisplay();
+        }
+        populateDisplay(value.textContent);
+        backspaceButton.disabled = false;
         });
     });
-
-    //2 + 5 = 7
-    //3 + 2 = 5
-    //20 + 2 = 22
 
 
 //Decimal click event
 const decimalButton = document.querySelector(".decimal");
 decimalButton.addEventListener("click", () => {
-    displayBox.textContent += ".";
+    if (equals) {
+        clearDisplay();
+    }
+    populateDisplay(".");
     decimalButton.disabled = true;
+    backspaceButton.disabled = false;
 });
 
 //Operator click event
 const operatorButton = document.querySelectorAll("[class*='operator']");
 [...operatorButton].map(value => {
     value.addEventListener("click", () => {
-        operator = value.textContent;
-        previousNumber = displayBox.textContent.split(operator)[0];
+        previousNumber = displayBox.textContent;
+        operator += value.textContent;
         clearDisplay();
+        backspaceButton.disabled = false;
         });
     });
 
 //Equals click event
 const equalsButton = document.querySelector(".equals");
 equalsButton.addEventListener("click", () => {
-    operate(operator, parseFloat(previousNumber), parseFloat(currentNumber));
-    //console.log(previousNumber + operator + currentNumber);
-    previousNumber = currentNumber;
     currentNumber = displayBox.textContent;
+    let lastOperator = operator.charAt(operator.length-1);
+    console.log(operator);
+    console.log(lastOperator);
+    operate(lastOperator, parseFloat(previousNumber), parseFloat(currentNumber));
     equals = true;
+    backspaceButton.disabled = true;
 });
 
 //All clear click event
 const allClearButton = document.querySelector(".clear");
-allClearButton.addEventListener("click", () => clearDisplay());
+allClearButton.addEventListener("click", () => {
+    clearDisplay();
+    currentNumber = "";
+    previousNumber = "";
+    operator = "";
+});
 
 //Backspace click event
 const backspaceButton = document.querySelector(".backspace");
@@ -157,89 +168,19 @@ backspaceButton.addEventListener("click", () => eraseLastInput());
 
 /*
 To do:
-
-- be able to start from the beginning if a number or decimal is pressed after equals
-- be able to continue the current equation if an operator is pressed after equals
-- only allow displaybox to be 9 characters
-- add keypress events
-- make displaybox say "80085" if user divides a number by 0
-- disable backspace on the displaybox once the operate function runs
-- operate on a current and previous numbers if an operator is clicked instead of equals (ex: 4 + 5 * should dispay 9)
+Hard:
+CHECK- be able to start from the beginning if a number or decimal is pressed after equals
+CHECK - be able to continue the current equation if an operator is pressed after equals
+CHECK- make displaybox say "80085" if user divides a number by 0
+CHECK- disable backspace on the displaybox once the operate function runs
+- only allow displaybox to be 9 characters long
+- operate on the current and previous numbers if an operator is clicked instead of equals (ex: 4 + 5 * should dispay 9)
 - allow operator to change value on consecutive clicks (ex: if user presses 3 + - * - + * 6, display should operate of the last operator clicked and show 18)
 - round numbers with long decimals
 - What does this mean? : "Pressing = before entering all of the numbers or an operator could cause problems!"
 - make sure user is really starting fresh after pressing all clear
+- add keypress events
+Easy:
 - clean up code. Make sure functions are used where needed and only perform one function. Delete unnecesary comments and console.logs. Make sure CSS code is clean
 - write description in Readme before pushing to github
 */
-
-
-
-
-
-// OLD
-//const buttonValue = document.querySelectorAll("button");
-
-// function populateDisplay() {
-//     [...buttonValue].map(value => {
-//         value.addEventListener("click", () => {
-//             displayBox.textContent += value.textContent;
-//             currentNumber = displayBox.textContent;
-//             if (operators.includes(value.textContent)) {
-//                 operator = value.textContent;
-//                 previousNumber = displayBox.textContent.split(operator)[0];
-//                 clearDisplay();
-//                 //console.log(previousNumber + " " + operator);
-//             }
-//             if (value.textContent == "AC") {
-//                 clearDisplay();
-//                 previousNumber = 0;
-//                 currentNumber = 0;
-//             }
-//             if (value.classList == "backspace") {
-//                 eraseLastInput();
-//             }
-//             if (value.textContent == "=") {
-//                 //console.log(previousNumber + " " + operator + " " + currentNumber);
-//                 operate(operator, parseFloat(previousNumber), parseFloat(currentNumber));
-//                 // decimalButton.disabled = true;
-//                 // backspaceButton.disabled = true;
-//                 // equalsButton.disabled = true;
-//                 currentNumber = displayBox.textContent;
-//                 console.log(currentNumber);
-//                 console.log(previousNumber);
-                
-//             }
-//             // if (currentNumber.includes("=")) {
-//             //     currentNumber = displayBox.textContent.split(".equals")[0];
-//             //     console.log(currentNumber);
-//             // }
-//         })
-//     })
-// }
-
-// populateDisplay();
-
-// function startNextEquation() {
-//     [...buttonValue].map(value => {
-//          value.addEventListener("click", () => {
-//             clearDisplay();
-//             displayBox.textContent += value.textContent;
-//             currentNumber = displayBox.textContent;
-//             if (operators.includes(value.textContent)) {
-//                 operator = value.textContent;
-//                 previousNumber = displayBox.textContent.split(operator)[0];
-//                 clearDisplay();
-//                 //console.log(previousNumber + " " + operator);
-//             }
-//             if (value.textContent == "AC") {
-//                 clearDisplay();
-//                 previousNumber = 0;
-//                 currentNumber = 0;
-//             }
-//             if (value.classList == "backspace") {
-//                 eraseLastInput();
-//             }
-//         })
-//     })
-// }
