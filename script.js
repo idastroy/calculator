@@ -104,12 +104,14 @@ const numberButton = document.querySelectorAll(".number");
         currentNumber = displayBox.textContent;
         //console.log(previousNumber + operator + currentNumber);
         if (equals) {
-            equals = false;
-            clearDisplay();
-            currentNumber = [...currentNumber].pop();
-            console.log(currentNumber + " " + previousNumber);
+            // let nextEquation = [...displayBox.textContent];
+            // nextEquation.pop();
+            // displayBox.textContent = nextEquation;
+            // equals = false;
+            // currentNumber = [...currentNumber].pop();
+            // console.log(currentNumber + " " + previousNumber);
             //currentNumber = displayBox.textContent;
-        }
+        };
         });
     });
 
@@ -153,6 +155,23 @@ allClearButton.addEventListener("click", () => clearDisplay());
 const backspaceButton = document.querySelector(".backspace");
 backspaceButton.addEventListener("click", () => eraseLastInput());
 
+/*
+To do:
+
+- be able to start from the beginning if a number or decimal is pressed after equals
+- be able to continue the current equation if an operator is pressed after equals
+- only allow displaybox to be 9 characters
+- add keypress events
+- make displaybox say "80085" if user divides a number by 0
+- disable backspace on the displaybox once the operate function runs
+- operate on a current and previous numbers if an operator is clicked instead of equals (ex: 4 + 5 * should dispay 9)
+- allow operator to change value on consecutive clicks (ex: if user presses 3 + - * - + * 6, display should operate of the last operator clicked and show 18)
+- round numbers with long decimals
+- What does this mean? : "Pressing = before entering all of the numbers or an operator could cause problems!"
+- make sure user is really starting fresh after pressing all clear
+- clean up code. Make sure functions are used where needed and only perform one function. Delete unnecesary comments and console.logs. Make sure CSS code is clean
+- write description in Readme before pushing to github
+*/
 
 
 
