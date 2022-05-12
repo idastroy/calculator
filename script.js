@@ -73,7 +73,7 @@ const operate = (operator, a, b) => {
         displayBox.textContent = a / b;
     };
     if (operator == "/" && b == "0") {
-        displayBox.textContent = "80085";
+        displayBox.textContent = "80085!";
     }
     console.log(a + operator + b);
 }
@@ -146,8 +146,6 @@ const equalsButton = document.querySelector(".equals");
 equalsButton.addEventListener("click", () => {
     currentNumber = displayBox.textContent;
     let lastOperator = operator.charAt(operator.length-1);
-    console.log(operator);
-    console.log(lastOperator);
     operate(lastOperator, parseFloat(previousNumber), parseFloat(currentNumber));
     equals = true;
     backspaceButton.disabled = true;
@@ -171,7 +169,7 @@ To do:
 Hard:
 CHECK- be able to start from the beginning if a number or decimal is pressed after equals
 CHECK - be able to continue the current equation if an operator is pressed after equals
-CHECK- make displaybox say "80085" if user divides a number by 0
+CHECK- make displaybox say something funny if user divides a number by 0 to avoid crashing computer
 CHECK- disable backspace on the displaybox once the operate function runs
 - only allow displaybox to be 9 characters long
 - operate on the current and previous numbers if an operator is clicked instead of equals (ex: 4 + 5 * should dispay 9)
