@@ -15,16 +15,16 @@ body {
 }
 
 #calculator {
+    display: flex;
+    flex-direction: column;
     border: none;
+    border-radius: 25px;
     box-shadow: inset -8px -8px -10px 2px #5b5858,10px 8px 15px 1px #191414;
                 -webkit-box-shadow: inset -8px -10px 2px #5b5858,10px 8px 15px 1px #332828;
                 -moz-box-shadow: inset -8px -8px -10px 2px #5b5858,10px 8px 15px 1px #332828;
                 -o-box-shadow: inset -8px -8px -10px 2px #5b5858,10px 8px 13px 1px #332828;
     background-color: rgba(32, 32, 33, 0.99);
     background-image: url("https://mashtrelo.com/wp-content/uploads/2017/11/brushed-metal-silver.jpg");
-    border-radius: 25px;
-    display: flex;
-    flex-direction: column;
     max-width: 350px;
     min-width: 350px;
     margin: 12em;
@@ -34,13 +34,13 @@ body {
 
 #display {
     border: none;
+    border-radius: 20px;
+        border-bottom-left-radius: 45%;
+        border-bottom-right-radius: 45%;
     margin: 5px;
         margin-bottom: 25px;
         margin-right: 14px;
     padding-bottom: 70px;
-    border-radius: 20px;
-        border-bottom-left-radius: 45%;
-        border-bottom-right-radius: 45%;
     background-color: black;
     background-image: url("https://media.istockphoto.com/photos/black-metal-texture-background-picture-id460230555?k=20&m=460230555&s=170667a&w=0&h=41Z6MH-yctNCZmIdTPwf1R6OfzTAGY2wn7_K5K1-ZyY=");
 }
@@ -48,7 +48,6 @@ body {
                 border: 8px solid rgb(202, 204, 199);
                 border-radius: 10px;
                 height: 1em;
-                padding: 2px;
                 margin: 30px;
                     margin-bottom: 10px;
                 background-color: rgba(214, 229, 214, 0.824);
@@ -119,6 +118,10 @@ body {
             }
 
 button:active {
+    transform: scale(0.98);
+}
+
+.press {
     transform: scale(0.98);
 }
 

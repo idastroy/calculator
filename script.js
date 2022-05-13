@@ -1,7 +1,15 @@
+let currentNumber = ""; 
+let previousNumber = ""; 
+let operator = "";
+const operators = ["/", "x", "-", "+"];
+let equals = false;
+let isOperator = false;
+
 //Create display box
 
 const displayBox = document.getElementById("display").appendChild(document.createElement("div"));
 displayBox.classList.add("displayBox");
+displayBox.textContent = "";
 
 
 //Create buttons for clear and backspace
@@ -13,8 +21,6 @@ const createAllClear = (classList, textContent) => {
     document.getElementById("longButtons").appendChild(clearButton);
 }
 
-createAllClear("clear", "AC");
-
 const createBackspace = (classList, innerHTML) => {
     const backspace = document.createElement("button");
     backspace.classList = classList;
@@ -22,10 +28,12 @@ const createBackspace = (classList, innerHTML) => {
     document.getElementById("longButtons").appendChild(backspace);
 }
 
+
+createAllClear("clear", "AC");
 createBackspace("backspace", `<i value="backspace" class="fa-solid fa-delete-left fa-1x"></i>`);
 
 
-//Create buttons for numbers
+//Create buttons for numbers, decimal, and equals
 
 const createButton = (classList, textContent) => {
     const numbers = document.createElement("button");
@@ -34,26 +42,23 @@ const createButton = (classList, textContent) => {
     numbers.textContent = textContent;
 }
 
+
 for (let i = 0; i < 10; i++) {
     createButton("number", `${value=[i]}`);
 }
-
-
-//Create buttons for decimal and equals
-
 createButton("decimal", `${value="."}`);
 createButton("equals", `${value="="}`);
 
 
 //Create buttons for operators
 
-const operators = ["/", "x", "-", "+"];
 const createOperatorButton = (classList, textContent) => {
     const symbol = document.createElement("button");
     document.getElementById("operators").appendChild(symbol);
     symbol.textContent = textContent;
     symbol.classList = classList;
 }
+
 
 for (let j = 0; j < operators.length; j++) {
     createOperatorButton(`operator${[j]}`, `${operators[j]}` )
@@ -75,94 +80,139 @@ const operate = (operator, a, b) => {
     if (operator == "/" && b == "0") {
         displayBox.textContent = "80085!";
     }
-    console.log(a + operator + b);
+    displayBox.textContent = displayBox.textContent.substring(0, 9);
 }
 
 
-//Declare variables and functions to populate the display
-
-let currentNumber = 0; 
-let previousNumber = 0; 
-let operator = "";
-let equals = false;
-
+//Functions to populate the display
 
 function clearDisplay() {
     displayBox.textContent = "";
     decimalButton.disabled = false;
     equals = false;
-}
-
-function eraseLastInput() {
-    let eraseDisplay = [...displayBox.textContent];
-    eraseDisplay.pop();
-    displayBox.textContent = eraseDisplay.join("");
+    isOperator = false;
 }
 
 function populateDisplay(num) {
     displayBox.textContent += num;
+    displayBox.textContent = displayBox.textContent.substring(0, 9);
+}
+
+function runEquation() {
+    currentNumber += displayBox.textContent;
+    operate(operator, parseFloat(previousNumber), parseFloat(currentNumber));
+    equals = true;
+    backspaceButton.disabled = true;
 }
 
 
-//Add events for each button
+//Event functions
 
-//Number click event
-const numberButton = document.querySelectorAll(".number");
-[...numberButton].map(value => {
-    value.addEventListener("click", () => {
-        if (equals) {
-            clearDisplay();
-        }
-        populateDisplay(value.textContent);
-        backspaceButton.disabled = false;
-        });
-    });
-
-
-//Decimal click event
-const decimalButton = document.querySelector(".decimal");
-decimalButton.addEventListener("click", () => {
+function numberEvent(e) {
     if (equals) {
+        clearDisplay();
+    }
+    if (isOperator) {
+        clearDisplay();
+    }
+    populateDisplay(e.textContent);
+    backspaceButton.disabled = false;
+}
+
+function decimalEvent() {
+    if (equals) {
+        clearDisplay();
+    }
+    if (isOperator) {
         clearDisplay();
     }
     populateDisplay(".");
     decimalButton.disabled = true;
     backspaceButton.disabled = false;
-});
+}
 
-//Operator click event
-const operatorButton = document.querySelectorAll("[class*='operator']");
-[...operatorButton].map(value => {
-    value.addEventListener("click", () => {
+function operatorEvent(e) {
+    if (previousNumber !== "" && currentNumber == "") {
+        runEquation();
+        operator = e.textContent;
         previousNumber = displayBox.textContent;
-        operator += value.textContent;
-        clearDisplay();
+        currentNumber = "";
+        decimalButton.disabled = false;
+        console.log(previousNumber + operator + currentNumber)
+    } else {
+        previousNumber = displayBox.textContent;
+        currentNumber = "";
+        operator = e.textContent;
+        isOperator = true;
         backspaceButton.disabled = false;
-        });
-    });
+    }
+}
 
-//Equals click event
-const equalsButton = document.querySelector(".equals");
-equalsButton.addEventListener("click", () => {
+function equalsEvent() {
+    runEquation();
+    previousNumber = currentNumber;
     currentNumber = displayBox.textContent;
-    let lastOperator = operator.charAt(operator.length-1);
-    operate(lastOperator, parseFloat(previousNumber), parseFloat(currentNumber));
-    equals = true;
-    backspaceButton.disabled = true;
-});
+}
 
-//All clear click event
-const allClearButton = document.querySelector(".clear");
-allClearButton.addEventListener("click", () => {
+function allClearEvent() {
     clearDisplay();
     currentNumber = "";
     previousNumber = "";
     operator = "";
-});
+}
 
-//Backspace click event
+function backspaceEvent() {
+    let eraseDisplay = [...displayBox.textContent];
+    eraseDisplay.pop();
+    displayBox.textContent = eraseDisplay.join("");
+}
+
+
+//Click events
+
+const numberButton = document.querySelectorAll(".number");
+const operatorButton = document.querySelectorAll("[class*='operator']");
+const decimalButton = document.querySelector(".decimal");
+const equalsButton = document.querySelector(".equals");
+const allClearButton = document.querySelector(".clear");
 const backspaceButton = document.querySelector(".backspace");
-backspaceButton.addEventListener("click", () => eraseLastInput());
+
+
+[...numberButton].map(value => {
+    value.addEventListener("click", () => numberEvent(value));
+});
+[...operatorButton].map(value => {
+    value.addEventListener("click", () => operatorEvent(value));
+});
+decimalButton.addEventListener("click", () => decimalEvent());
+equalsButton.addEventListener("click", () => equalsEvent());
+allClearButton.addEventListener("click", () => allClearEvent());
+backspaceButton.addEventListener("click", () => backspaceEvent());
+
+
+//Keyboard events
+
+window.addEventListener("keydown", (btn) => {
+    // if (btn.key <= 0 || btn.key >= 0) {
+    //     numberEvent(btn);
+    //     console.log(btn)
+    // }
+    // if (btn.key == ".") {
+    //     decimalEvent();
+    // }
+    // if (btn.key == "/" || btn.key == "*" || btn.key == "+" || btn.key == "-") {
+    //     operatorEvent();
+    // }
+    // if (btn.key == "Backspace") {
+    //     backspaceEvent();
+    // }
+    // if (btn.key == "=") {
+    //     equalsEvent();
+    // }
+    console.log(btn);
+    numberEvent(btn);
+    btn.classList = ".press";
+});
 
 /*
 To do:
@@ -171,14 +221,18 @@ CHECK- be able to start from the beginning if a number or decimal is pressed aft
 CHECK - be able to continue the current equation if an operator is pressed after equals
 CHECK- make displaybox say something funny if user divides a number by 0 to avoid crashing computer
 CHECK- disable backspace on the displaybox once the operate function runs
-- only allow displaybox to be 9 characters long
-- operate on the current and previous numbers if an operator is clicked instead of equals (ex: 4 + 5 * should dispay 9)
+CHECK- only allow displaybox to be 9 characters long
+CHECK- round numbers with long decimals
+CHECK- make sure user is really starting fresh after pressing all clear
+CHECK- "Pressing = before entering all of the numbers or an operator could cause problems!"
+CHECK- operate on the current and previous numbers if an operator is clicked instead of equals (ex: 4 + 5 * should dispay 9)
 - allow operator to change value on consecutive clicks (ex: if user presses 3 + - * - + * 6, display should operate of the last operator clicked and show 18)
-- round numbers with long decimals
-- What does this mean? : "Pressing = before entering all of the numbers or an operator could cause problems!"
-- make sure user is really starting fresh after pressing all clear
 - add keypress events
+- if backspace erases a decimal, decimal.disable = false
+- fix box shadow on buttons 
+- get .press in CSS to work correctly
+- make sure decimal is not disabled after equals or operators
 Easy:
-- clean up code. Make sure functions are used where needed and only perform one function. Delete unnecesary comments and console.logs. Make sure CSS code is clean
-- write description in Readme before pushing to github
+- clean up code. Make sure functions are used where needed and that they only perform one function. Delete unnecesary comments and console.logs. Make sure CSS code is clean
+- write detailed description in Readme before pushing to github
 */
