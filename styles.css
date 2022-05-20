@@ -63,8 +63,8 @@ body {
 #longButtons {
     display: flex;
     justify-content: center;
-    gap: 5px;
-    margin: 2px 35px 5px 20px;
+    gap: 8px;
+    margin: 2px 25px 5px 20px;
 }
 
             #longButtons button {
@@ -75,13 +75,17 @@ body {
                     background: -o-linear-gradient(100deg, #90334D 17%, #6B2237 100%);
                 border: none;
                 border-radius: 10px;
-                padding: 5px 52px;
-                font-size: 40px;
+                padding: 5px 50px;
+                font-size: 45px;
                 color: rgb(207, 207, 207);
-                box-shadow: inset -2px -3px 1px 1px #4a212d,4px -3px 9px -6px #161010;
-                            -webkit-box-shadow: inset -2px -3px 1px 1px #4a212d,4px -3px 9px -6px #161010;
-                            -moz-box-shadow: inset -2px -3px 1px 1px #4a212d,4px -3px 9px -6px #161010;
-                            -o-box-shadow: inset -2px -3px 1px 1px #4a212d,4px -3px 9px -6px #161010;
+                box-shadow: inset -2px -3px 1px 1px #613341,4px -3px 9px -6px #161010;
+                            -webkit-box-shadow: inset -2px -3px 1px 1px #613341,4px -3px 9px -6px #161010;
+                            -moz-box-shadow: inset -2px -3px 1px 1px #613341,4px -3px 9px -6px #161010;
+                            -o-box-shadow: inset -2px -3px 1px 1px #613341,4px -3px 9px -6px #161010;
+            }
+
+            #longButtons .backspace {
+                padding: 5px 46px;
             }
 
 #buttons {
@@ -93,10 +97,12 @@ body {
 #numbers, #operators {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row-reverse;
     gap: 7px;
 }
             #numbers button, #operators button {
                 font-size: 20px;
+                font-weight: 800;
                 background-color: rgb(128, 134, 135);
                 background: linear-gradient(100deg, #737E87 17%, #3C4852 100%);
                     background: -moz-linear-gradient(100deg, #737E87 17%, #3C4852 100%);
@@ -107,10 +113,10 @@ body {
                 width: 3.45em;
                 border: none;
                 border-radius: 10px;
-                box-shadow: inset -2px -3px 1px 1px #3f3f3f,4px -3px 9px -6px #161010;
-                            -webkit-box-shadow: inset -2px -3px 1px 1px #3f3f3f,4px -3px 9px -6px #161010;
-                            -moz-box-shadow: inset -2px -3px 1px 1px #3f3f3f,4px -3px 9px -6px #161010;
-                            -o-box-shadow: inset -2px -3px 1px 1px #3f3f3f,4px -3px 9px -6px #161010;
+                box-shadow: inset -2px -3px 1px 1px #494949,4px -3px 9px -6px #161010;
+                            -webkit-box-shadow: inset -2px -3px 1px 1px #494949,4px -3px 9px -6px #161010;
+                            -moz-box-shadow: inset -2px -3px 1px 1px #494949,4px -3px 9px -6px #161010;
+                            -o-box-shadow: inset -2px -3px 1px 1px #494949,4px -3px 9px -6px #161010;
             }
 
             #operators button {
