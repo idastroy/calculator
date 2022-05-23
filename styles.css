@@ -127,9 +127,9 @@ button:active {
     transform: scale(0.98);
 }
 
-.press {
+/* .press {
     transform: scale(0.98);
-}
+} */
 
 
 footer {
@@ -147,3 +147,13 @@ footer {
         color: rgb(227, 227, 227);
     }
 
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+    body {
+        background-image: none;
+        background-color: rgb(228, 187, 51);
+    }
+    #calculator {
+        margin-left: .75em;
+        margin-top: 4em;
+    }
+}

@@ -69,7 +69,6 @@ const operate = (operator, a, b) => {
         if (b == "0") displayBox.textContent = "80085!";
     };
     displayBox.textContent = displayBox.textContent.substring(0, 9);
-    //console.log(previousNumber + " " + operator + " " + currentNumber);
 }
 
 //Functions to populate the display
@@ -84,7 +83,6 @@ function clearDisplay() {
 function populateDisplay(num) {
     displayBox.textContent += num;
     displayBox.textContent = displayBox.textContent.substring(0, 9);
-    //console.log(previousNumber + " " + operator + " " + currentNumber);
 }
 
 function runEquation() {
@@ -93,7 +91,6 @@ function runEquation() {
     equals = true;
     backspaceButton.disabled = true;
     decimalButton.disabled = false;
-    //console.log(previousNumber + " " + operator + " " + currentNumber);
 }
 
 
@@ -104,7 +101,6 @@ function numberEvent(e) {
     if (isOperator) clearDisplay();
     populateDisplay(e.textContent);
     backspaceButton.disabled = false;
-    // console.log(previousNumber + " " + operator + " " + currentNumber);
 }
 
 function decimalEvent() {
@@ -122,7 +118,6 @@ function operatorEvent(e) {
         previousNumber = displayBox.textContent;
         currentNumber = "";
         decimalButton.disabled = false;
-        // console.log(previousNumber + " " + operator + " " + currentNumber);
         } 
     else {
         previousNumber = displayBox.textContent;
@@ -130,7 +125,6 @@ function operatorEvent(e) {
         operator = e.name;
         isOperator = true;
         backspaceButton.disabled = false;
-        // console.log(previousNumber + " " + operator + " " + currentNumber);
     }
 }
 
@@ -138,7 +132,6 @@ function equalsEvent() {
     runEquation();
     previousNumber = currentNumber;
     currentNumber = displayBox.textContent;
-    //console.log(previousNumber + " " + operator + " " + currentNumber);
 }
 
 function allClearEvent() {
@@ -159,17 +152,12 @@ function backspaceEvent() {
 
 // function keyboardEvent(e) {
 //     if (e.key <= 0 || e.key >= 0) numberEvent(e.key);
-//     if (e.key == ".") decimalEvent();
+//     if (e.key == ".") decimalEvent(e.key);
 //     if (e.key == "/" || e.key == "*" || e.key == "+" || e.key == "-") operatorEvent(e.key);
-//     if (e.key == "Backspace") backspaceEvent();
-//     if (e.key == "=") equalsEvent();
+//     if (e.key == "Backspace") backspaceEvent(e.key);
+//     if (e.key == "=") equalsEvent(e.key);
 //     e.classList = "press";
-//     console.log(e);
-//     console.log(e.key);
-//     console.log(window);
-//     console.log(document);
-//     console.log(numberEvent)
-//}
+// }
 
 
 //Events
@@ -193,7 +181,7 @@ decimalButton.addEventListener("click", () => decimalEvent());
 equalsButton.addEventListener("click", () => equalsEvent());
 allClearButton.addEventListener("click", () => allClearEvent());
 backspaceButton.addEventListener("click", () => backspaceEvent());
-//window.addEventListener("keydown", keyboardEvent);
+//document.addEventListener("keydown", (event) => keyboardEvent(event));
 
 
 //Add icons
@@ -227,29 +215,3 @@ function addIcons() {
 }
 
 addIcons();
-
-/*
-To do:
-Hard:
-CHECK- be able to start from the beginning if a number or decimal is pressed after equals
-CHECK - be able to continue the current equation if an operator is pressed after equals
-CHECK- make displaybox say something funny if user divides a number by 0 to avoid crashing computer
-CHECK- disable backspace on the displaybox once the operate function runs
-CHECK- only allow displaybox to be 9 characters long
-CHECK- round numbers with long decimals
-CHECK- make sure user is really starting fresh after pressing all clear
-CHECK- "Pressing = before entering all of the numbers or an operator could cause problems!"
-CHECK- operate on the current and previous numbers if an operator is clicked instead of equals (ex: 4 + 5 * should dispay 9)
-CHECK- if backspace erases a decimal, decimal.disable = false 
-CHECK- make sure decimal is not disabled after equals or operators
-CHECK- import divide icon from font awesome
-- add a math round function to limit decimals
-- allow operator to change value on consecutive clicks (ex: if user presses 3 + - * - + * 6, display should operate on the last operator clicked and show 18)
-- add keypress events
-- get .press in CSS to work correctly
-- make calculator mobile friendly
-
-Easy:
-- clean up code. Make sure functions are used where needed and that they only perform one function. Delete unnecesary comments and console.logs. Make sure CSS code is clean
-- write detailed description in Readme before pushing to github
-*/
